@@ -1,7 +1,16 @@
+
+           <div style="text-align: right;height: 3rem;background-color: paleturquoise;padding-right: 2rem;">
+            <button mat-icon-button (click)="logout()">
+                <mat-icon>input</mat-icon>
+            </button> 
+        </div>    
+            
+
 <section class="profile">
+
 <mat-card>
     <div class="text-center">
-    <mat-card-title>User Profile</mat-card-title>
+    <mat-card-title>My Profile</mat-card-title>
 </div>
     <mat-grid-list [cols]="breakpoint"  (window:resize)="onResize($event)">
         <section style="padding: 1rem;width: 600px;" class="grid">

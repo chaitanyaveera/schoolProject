@@ -22,12 +22,12 @@ export class LoginGuard implements CanActivate {
         this.router.navigate(['/home'])
       } else {
         // navigate to profile page
-        this.router.navigate(['profile'])
+        this.router.navigate(['/profile'])
       }
       return false;
     } else {
       // navigate to login page
-      this.router.navigate(['/login'])
+      // this.router.navigate(['/login'])
 
       return true;
     }

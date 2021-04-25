@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         const user = users.find((each)=> each.email == email && each.password == password);
         if(user){
           window.localStorage.setItem('user',JSON.stringify(user));
-          this.route.navigate(['home','profile']);
+          this.route.navigate(['/profile']);
         }else{
           this.toastr.error('Invalid Credentials');
         }
