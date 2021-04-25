@@ -16,6 +16,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatDatepickerModule,
     MatSelectModule,
     MatAutocompleteModule,
+    ToastrModule
     
 
 
@@ -56,7 +58,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatTableModule,
     MatDialogModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ToastrModule
 
   ],
   providers: [

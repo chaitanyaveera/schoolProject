@@ -3,43 +3,28 @@
         <mat-card-title class="mb-3">Login</mat-card-title>
         <mat-card-content>
             <form [formGroup]="form" (ngSubmit)="submit()">
-
-
                 <p>
                     <mat-form-field>
                         <input type="text" matInput placeholder="Email" formControlName="email">
+                        <mat-icon matSuffix>mail_outline</mat-icon>
                         <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
-
                     </mat-form-field>
                 </p>
-
                 <p>
                     <mat-form-field>
-                        <input type="password" matInput placeholder="Password" formControlName="password">
-                        <mat-error *ngIf="hasError('password', 'required')">Email is required</mat-error>
+                        <input type="password" #input matInput placeholder="Password" maxlength="10"
+                            formControlName="password">
+                        <mat-icon matSuffix>lock</mat-icon>
+                        <mat-hint>{{input.value?.length || 0}}/10</mat-hint>
+                        <mat-error *ngIf="hasError('password', 'required') && form.get('password').touched">Password is required</mat-error>
                     </mat-form-field>
                 </p>
-
-                <p>
-                    <mat-form-field>
-                        <mat-label>User Type</mat-label>
-                        <mat-select matNativeControl formControlName="user">
-                            <mat-option value="teacher">Teacher</mat-option>
-                            <mat-option value="student">Student</mat-option>
-                            <mat-option value="admin">Admin</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="hasError('user', 'required')">user is required</mat-error>
-
-                    </mat-form-field>
-                </p>
-
-
                 <div class="button">
                     <button mat-raised-button class="mr-3" [routerLink]="['/signup']">SIGNUP</button>
                     <button mat-raised-button color="accent" type="submit">LOGIN</button>
                 </div>
-
             </form>
+           
         </mat-card-content>
     </mat-card>
 

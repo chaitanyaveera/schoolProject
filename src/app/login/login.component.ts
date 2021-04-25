@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: ['', Validators.required, [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', Validators.required],
       user: ['', Validators.required]
     })
@@ -23,16 +23,16 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    localStorage.clear()
+    localStorage.clear();
     setTimeout(() => {
       localStorage.setItem("token", this.form.value.user);
-      if (this.form.value.user == 'teacher') {
-        this.route.navigate(['/picmysloar/teachers']);
-      } else if (this.form.value.user == 'student') {
-        this.route.navigate(['/picmysloar/students']);
-      } else {
-        this.route.navigate(['/picmysloar']);
-      }
+      // if (this.form.value.user == 'teacher') {
+      //   this.route.navigate(['/picmysloar/teachers']);
+      // } else if (this.form.value.user == 'student') {
+      //   this.route.navigate(['/picmysloar/students']);
+      // } else {
+      //   this.route.navigate(['/picmysloar']);
+      // }
     }, 100);
   }
 }

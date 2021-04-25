@@ -10,8 +10,9 @@ import { SharedmoduleModule } from '../services/sharedmodule/sharedmodule.module
   declarations: [TeachersComponent],
   imports: [
     CommonModule,
+    SharedmoduleModule,
     TeachersRoutingModule,
-    SharedmoduleModule
+
   ]
 })
 export class TeachersModule { }

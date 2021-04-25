@@ -1,5 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { ToastrService } from 'ngx-toastr';
 import * as data from '../roles.json'
 
 @Component({
@@ -8,60 +11,82 @@ import * as data from '../roles.json'
   styleUrls: ['./roles.component.scss']
 })
 export class RolesComponent implements OnInit {
-  dataSource: any = data[<any>'default'];
+  dataSource: any[] = [];
   datasend: any;
   roleName: any = ''
   displayedColumns: string[] = ['role', 'edit'];
   show: boolean = true;
-  constructor(public dialog: MatDialog) { }
+  form: FormGroup;
+  constructor(
+    public dialog: MatDialog,
+    private dbService: NgxIndexedDBService,
+    private toastr: ToastrService,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      id: ''
+    })
+  }
 
   ngOnInit(): void {
+    this.getRoles();
+  }
+  getRoles() {
+    this.dbService.getAll('roles').subscribe((roles: any[]) => {
+      this.dataSource = roles;
+      console.log(roles);
+    });
   }
 
   openDialog(role: any): void {
+    this.form.reset();
     const dialogRef = this.dialog.open(role, {
       width: '30%',
       disableClose: true,
 
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (this.roleName) {
-        this.dataSource.push(this.datasend);           //sending data for Roles
-      }
-      this.show = true;
     });
   }
   close() {
     this.dialog.closeAll();                   //close the role dialogue
   }
   addRole() {
-    let id = Math.random() * 100;
-    let obj = {
-      roleName: this.roleName,
-      id: Math.round(id)
+    if (this.form.invalid) {
+      return;
     }
-    this.show = false;
-    this.datasend = obj;
+    if (this.form.valid) {
+      const temp = this.form.value;
+      let obs: any;
+      if (!temp.id) {
+        obs = this.dbService
+          .add('roles', { name: this.form.value.name });
+      } else {
+        obs = this.dbService
+          .update('roles', { ...this.form.value });
+      }
+      obs.subscribe((key: any) => {
+        this.toastr.success('New Role Created Successfully');
+        this.dialog.closeAll();
+        this.getRoles();
+      });
+    }
   }
-  editRole(element: any, index: any, role: any) {
-    const dialogRef = this.dialog.open(role, {
+  editRole(role: any, viewRef: any) {
+    this.form.reset();
+    const dialogRef = this.dialog.open(viewRef, {
       width: '30%',
       disableClose: true,
     });
-    this.roleName = element.roleName;
-    dialogRef.afterClosed().subscribe(result => {
-      this.dataSource[index].roleName = this.roleName;        //edit role name assign
-      this.show = true;
-      this.roleName = '';
-    });
+    this.form.get('name')?.setValue(role.name);
+    this.form.get('id')?.setValue(role.id);
   }
   deleteRole(element: any) {
-    this.dataSource.splice(this.dataSource.indexOf(element), 1);   //delete the item using splice 
-    this.show = false;
-    setTimeout(() => {
-      this.show = true;
-    }, 100);
+    if (window.confirm('Are sure to delete ?')) {
+      this.dbService.delete('roles', element.id).subscribe((res) => {
+        this.getRoles();
+        this.toastr.success("Successfully Deleted");
+      });
+    }
   }
 }
 

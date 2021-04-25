@@ -1,0 +1,29 @@
+{
+    "student": {
+        "Name": "Ramakrishna",
+        "Age": "15",
+        "Mobile": "9876545679",
+        "State": "Andhra",
+        "Role": "student",
+        "DOB": "12-1-2005"
+    },
+    "admin": {
+        "Name": "Siva Shankar",
+        "Age": "25",
+        "Mobile": "9877845679",
+        "State": "Telangana",
+        "Role": "Admin",
+        "DOB": "14-4-1995",
+        "Email": "shankar@gmail.com"
+    },
+    "teacher": {
+        "Name": "Prasad",
+        "Age": "35",
+        "Mobile": "9834563455",
+        "Email Id": "Prasad@gmail.com",
+        "State": "Telangana",
+        "Role": "Lecturer",
+        "DOB": "1-6-1985",
+        "Married": "yes"
+    }
+}

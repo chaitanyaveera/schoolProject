@@ -1,6 +1,6 @@
 <mat-drawer-container>
     <mat-drawer #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches"
-        [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}"> 
+        [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}">
         <div class="sidenav-header">
             <span>{{collapsedNav && !mobileQuery.matches ? 'P' : ''}}</span>
             <img src="{{collapsedNav && !mobileQuery.matches ? '' : '../../assets/pickmysolar_site_logo.png'}}" alt="">
@@ -13,16 +13,9 @@
                     <span class="border-active1"></span>
                 </a>
             </li>
-            <li class="menu-back position-relative" routerLink="teachers" routerLinkActive="active">
+            <li class="menu-back position-relative" routerLink="users" routerLinkActive="active">
                 <a>
-                    Teachers
-                    <span class="border-active"></span>
-                    <span class="border-active1"></span>
-                </a>
-            </li>
-            <li class="menu-back position-relative" routerLink="students" routerLinkActive="active">
-                <a>
-                    Students
+                    Users
                     <span class="border-active"></span>
                     <span class="border-active1"></span>
                 </a>
@@ -34,10 +27,16 @@
             <button mat-icon-button (click)="mobileQuery.matches ? snav.toggle() : collapsedNav = !collapsedNav">
                 <mat-icon>menu</mat-icon>
             </button>
-            <button mat-icon-button (click)="profile()">
-                <mat-icon>account_box</mat-icon>
-            </button>
+            <div>
+                <button mat-icon-button (click)="profile()">
+                    <mat-icon>account_box</mat-icon>
+                </button>
+                <button mat-icon-button (click)="logout()">
+                    <mat-icon>input</mat-icon>
+                </button>
+            </div>
         </mat-toolbar>
+
         <mat-card>
             <router-outlet></router-outlet>
         </mat-card>

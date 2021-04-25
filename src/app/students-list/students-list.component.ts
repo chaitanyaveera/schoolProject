@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import *  as  data from '../students.json';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -14,11 +16,14 @@ export class StudentsListComponent implements OnInit {
   dataSource: any = data[<any>'default'];
   datasend: any;
   show: boolean = true;
+  getRole: any;
 
   displayedColumns: string[] = ['firstName', 'lastName', 'rollNo', 'age', 'standard', 'gender', 'Edit'];
-  constructor(private fb: FormBuilder, private dialog: MatDialog) { }
+  constructor(private fb: FormBuilder, private dialog: MatDialog , private toastr:ToastrService) { }
 
   ngOnInit(): void {
+    console.log(new Date())
+    this.getRole = localStorage.getItem('token')
 
 
     this.studentForm = this.fb.group({
@@ -41,6 +46,8 @@ export class StudentsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (this.studentForm.valid) {
         this.dataSource.push(this.datasend);
+        this.toastr.success("Successfull");
+
       }
       this.show = true;
       this.studentForm.reset();
@@ -53,7 +60,8 @@ export class StudentsListComponent implements OnInit {
     this.show = false;
   }
   deleteStudent(std: any) {
-    this.dataSource.splice(this.dataSource.indexOf(std), 1);   //delete the item using splice 
+    this.dataSource.splice(this.dataSource.indexOf(std), 1);   //delete the item using splice
+    this.toastr.success("Deleted"); 
     this.show = false;
     setTimeout(() => {
       this.show = true;
@@ -76,6 +84,7 @@ export class StudentsListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       this.dataSource[index] = this.studentForm.value;
+      this.toastr.success("Successfull");
       this.show = true;
       this.dialog.closeAll();
     });

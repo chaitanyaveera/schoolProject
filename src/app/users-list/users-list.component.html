@@ -1,1 +1,136 @@
-<p>users-list works!</p>
+<section class="roles">
+    <div class="text-right">
+        <span class="btn-left-1">
+            <button mat-raised-button color="accent" (click)="openDialog(userViewRef)">
+                <mat-icon>add</mat-icon> Add New User
+            </button>
+        </span>
+    </div>
+
+
+    <mat-card style="margin-top: 1rem;">
+        <mat-card-title>Users List</mat-card-title>
+        <div style="overflow-x:auto; ">
+            <table mat-table [dataSource]="dataSource" *ngIf="show" class="mat-elevation-z8">
+                <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef>First Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.firstName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.lastName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef>Email</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="password">
+                    <th mat-header-cell *matHeaderCellDef>Password</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.password}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dob">
+                    <th mat-header-cell *matHeaderCellDef> DOB</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.dob | date:'dd-MM-yyyy'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="mobileNumber">
+                    <th mat-header-cell *matHeaderCellDef> Mobile</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.mobileNumber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="gender">
+                    <th mat-header-cell *matHeaderCellDef> Gender</th>
+                    <td mat-cell *matCellDef="let element"> {{element.gender | titlecase}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Edit">
+                    <th mat-header-cell *matHeaderCellDef>Edit </th>
+                    <td mat-cell *matCellDef="let element ; let i =index">
+                        <span (click)="editStudent(element , i,userViewRef)" class="cursor-pointer">
+                            <mat-icon>create</mat-icon>
+                        </span> <span (click)="deleteStudent(element)" class="cursor-pointer">
+                            <mat-icon>delete_sweep</mat-icon>
+                        </span>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </div>
+
+
+    </mat-card>
+
+</section>
+
+<ng-template #userViewRef>
+    <mat-card-title>Create User </mat-card-title>
+
+    <form class="example-form" [formGroup]="userForm" style="margin-top: 1rem !important;">
+        <mat-grid-list [cols]="breakpoint" rowHeight="60px" (window:resize)="onResize($event)">
+            <mat-grid-tile>
+                <mat-form-field class="w-90">
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="Enter First Name" formControlName="firstName">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="w-90">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Enter Last Name" formControlName="lastName">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="w-90">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Enter Email" formControlName="email">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="w-90">
+                    <mat-label>Password</mat-label>
+                    <input matInput placeholder="Enter Password" max="10" type="password" formControlName="password">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="w-90">
+                    <mat-label>DOB</mat-label>
+                    <input placeholder="Enter DOB" matInput [matDatepicker]="picker" formControlName="dob">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="w-90">
+                    <mat-label>Mobile No</mat-label>
+                    <input matInput placeholder="Enter Mobile Number" max="10" type='text'
+                        formControlName="mobileNumber">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="w-90">
+                    <mat-label>Gender</mat-label>
+                    <mat-select matNativeControl formControlName="gender">
+                        <mat-option value="male">Male</mat-option>
+                        <mat-option value="female">Female</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="w-90">
+                    <mat-label>Role</mat-label>
+                    <mat-select matNativeControl formControlName="role">
+                        <mat-option *ngFor="let each of roles" [value]="each.id">{{each.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <div mat-dialog-actions>
+            <button mat-button (click)="close()" color="warn">Cancel</button>
+            <button mat-raised-button [mat-dialog-close]="datasend" color="accent" (click)="addUser()"
+                cdkFocusInitial>Save</button>
+        </div>
+    </form>
+</ng-template>

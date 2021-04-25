@@ -12,21 +12,15 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    let token = localStorage.getItem('token');
-    console.log(route?.routeConfig?.path, "this is file")
-    if (route?.routeConfig?.path == 'login') {
-      console.log(token, "hello")
-      if (token) {
-        this.router.navigate(['picmysloar']);
-        return false;
-      }
+    let token = localStorage.getItem('user');
+    // console.log(route?.routeConfig?.path, "this is file")
+    if (token) {
+      return false;
     } else {
-      // console.log(route?.routeConfig?.path, "else helo")
-      if (!token) {
-        this.router.navigate(['login']);
-        return false;
-      }
+      // this.router.navigate(['login']);
+      return true;
     }
+
     return true;
   }
   canActivateChild(
