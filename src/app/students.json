@@ -1,0 +1,18 @@
+[
+    {
+        "age": "16",
+        "firstName": "Pavan",
+        "gender": "male",
+        "lastName": "Kumar",
+        "rollNo": "PMS102",
+        "standard": "10th"
+    },
+    {
+        "age": "14",
+        "firstName": "Mohan",
+        "gender": "male",
+        "lastName": "Kumar",
+        "rollNo": "PMS100",
+        "standard": "8th"
+    }
+]

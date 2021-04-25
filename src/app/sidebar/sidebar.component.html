@@ -1,0 +1,45 @@
+<mat-drawer-container>
+    <mat-drawer #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches"
+        [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}"> 
+        <div class="sidenav-header">
+            <span>{{collapsedNav && !mobileQuery.matches ? 'P' : ''}}</span>
+            <img src="{{collapsedNav && !mobileQuery.matches ? '' : '../../assets/pickmysolar_site_logo.png'}}" alt="">
+        </div>
+        <ul>
+            <li class="menu-back position-relative" routerLink="roles" routerLinkActive="active">
+                <a>
+                    Roles
+                    <span class="border-active"></span>
+                    <span class="border-active1"></span>
+                </a>
+            </li>
+            <li class="menu-back position-relative" routerLink="teachers" routerLinkActive="active">
+                <a>
+                    Teachers
+                    <span class="border-active"></span>
+                    <span class="border-active1"></span>
+                </a>
+            </li>
+            <li class="menu-back position-relative" routerLink="students" routerLinkActive="active">
+                <a>
+                    Students
+                    <span class="border-active"></span>
+                    <span class="border-active1"></span>
+                </a>
+            </li>
+        </ul>
+    </mat-drawer>
+    <mat-drawer-content [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}">
+        <mat-toolbar style="display: flex; justify-content: space-between;">
+            <button mat-icon-button (click)="mobileQuery.matches ? snav.toggle() : collapsedNav = !collapsedNav">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <button mat-icon-button (click)="profile()">
+                <mat-icon>account_box</mat-icon>
+            </button>
+        </mat-toolbar>
+        <mat-card>
+            <router-outlet></router-outlet>
+        </mat-card>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,105 @@
+.menu-back.active{
+    // background-color: #363636;
+    /* Firefox */
+    -moz-transition: all 0.2s ease-in !important;
+    /* WebKit */
+    -webkit-transition: all 0.2s ease-in !important;
+    /* Opera */
+    -o-transition: all 0.2s ease-in !important;
+    /* Standard */
+    transition: all 0.2s ease-in !important;
+
+    color: #E5B579;
+}
+
+.menu-back.active .border-active1{
+    z-index: -1 !important;
+    left: 0 !important;
+    top:0 !important;
+    position: absolute !important;
+    background-color: #363636 !important;
+    height: 100% !important;
+    animation: leftmove1 0.5s forwards !important;
+}
+
+.menu-back.active .border-active {
+    position: absolute !important;
+    top: 0 !important;
+    height: 100% !important;
+    width: 4px !important;
+    background-color: #E5B579 !important;
+    z-index: 1 !important;
+    border-radius: 5px 0 0 5px !important;
+    animation: leftmove 0.5s forwards !important;
+}
+
+.colorchange {
+    color: #E5B579;
+}
+
+@keyframes leftmove {
+    0% {
+        left: 100%;
+    }
+    // 50% {
+    //     left: 50%;
+    // }
+    100% {
+        left: 0px;
+    }
+}
+@keyframes leftmove1 {
+    0% {
+        left: 100%;
+        width: 0;
+    }
+    // 50% {
+    //     left: 50%;
+    // }
+    100% {
+        left: 0px;
+        width: 100%;
+    }
+}
+
+
+
+.text-center{
+    text-align: center;
+}
+.d-flex{
+    display: flex;
+}
+.btn-left-1{
+margin-left: 1rem;
+}
+table {
+    width: 100%;
+  }
+  .cursor-pointer{
+      cursor: pointer;
+  }
+  .text-right{
+      text-align: right;
+  }
+  .mat-header-cell{
+      font-size: 16px;
+  }
+
+
+  @media (min-width:320px) and (max-width:720px){
+        .cdk-overlay-pane{
+            width: 100% !important;
+        }
+        table {
+            overflow: scroll;
+          
+          }
+          .grid{
+            display: grid !important;
+          grid-template-columns: auto !important;
+          grid-column-gap: 1rem;
+        
+        }
+    
+  }
