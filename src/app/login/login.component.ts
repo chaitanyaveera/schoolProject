@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   submit() {
     localStorage.clear();
     setTimeout(() => {
-      localStorage.setItem("token", this.form.value.user);
+      localStorage.setItem("user", this.form.value.user);
       // if (this.form.value.user == 'teacher') {
       //   this.route.navigate(['/picmysloar/teachers']);
       // } else if (this.form.value.user == 'student') {

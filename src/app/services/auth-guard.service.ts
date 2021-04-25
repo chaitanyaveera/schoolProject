@@ -21,7 +21,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
       return true;
     }
 
-    return true;
+    // return true;
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
