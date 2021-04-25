@@ -5,10 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedmoduleModule } from './services/sharedmodule/sharedmodule.module';
-import { ProfileComponent } from './profile/profile.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
-
+// Ahead of time compiles requires an exported function for factories
+export function migrationFactory() {
+  // The animal table was added with version 2 but none of the existing tables or data needed
+  // to be modified so a migrator for that version is not included.
+  return {
+    1: (db:any, transaction:any) => {
+      const store = transaction.objectStore('users');
+      store.createIndex('email', 'email', { unique: false });
+    },
+    2: (db:any, transaction:any) => {
+      const store = transaction.objectStore('users');
+      store.createIndex('password', 'password', { unique: false });
+    }
+  };
+}
 const dbConfig: DBConfig  = {
   name: 'MyDb',
   version: 1,
@@ -34,12 +47,11 @@ const dbConfig: DBConfig  = {
       { name: 'role', keypath: 'roleId', options: { unique: false } }
     ]
   },
-]
+],migrationFactory
 };
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent,
   ],
   imports: [
     BrowserModule,

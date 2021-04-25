@@ -29,19 +29,18 @@ export class SidebarComponent implements OnInit {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
-  profile() {
-    const dialogRef = this.dialog.open(ProfileComponent, {
-      width: '50%',
-      disableClose: true
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.dialog.closeAll()
-    });
-  }
+  // profile() {
+  //   const dialogRef = this.dialog.open(ProfileComponent, {
+  //     width: '50%',
+  //     disableClose: true
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.dialog.closeAll()
+  //   });
+  // }
   logout(){
     localStorage.clear();
     this.router.navigate(['/login'])
-
   }
 
 }

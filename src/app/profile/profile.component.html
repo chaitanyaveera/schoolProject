@@ -1,16 +1,17 @@
-<mat-card-title>User Profile</mat-card-title>
-
-<section style="padding: 1rem;" class="grid">
-    <div *ngFor="let item of profileList">
-        <mat-card-subtitle class="m-0"> {{item[0]}}</mat-card-subtitle>
-        <span class="name-title">{{item[1]}}</span>
-    </div>
-</section>
-
-
-
-
-
-<div mat-dialog-actions>
-    <button mat-raised-button [mat-dialog-close]="" color="accent" cdkFocusInitial>Ok</button>
+<section class="profile">
+<mat-card>
+    <div class="text-center">
+    <mat-card-title>User Profile</mat-card-title>
 </div>
+    <mat-grid-list [cols]="breakpoint"  (window:resize)="onResize($event)">
+        <section style="padding: 1rem;width: 600px;" class="grid">
+            <div *ngFor="let item of profileList">
+                <mat-card-subtitle class="m-0"> {{item[0]}}</mat-card-subtitle>
+                <span class="name-title" style="margin-top: 0.5rem;">{{ item[0] == 'dob' ? (item[1] | date:'dd-MM-yyyy')
+                    : item[1]}}</span>
+            </div>
+        </section>
+
+    </mat-grid-list>
+</mat-card>
+</section>

@@ -16,11 +16,11 @@
                             formControlName="password">
                         <mat-icon matSuffix>lock</mat-icon>
                         <mat-hint>{{input.value?.length || 0}}/10</mat-hint>
-                        <mat-error *ngIf="hasError('password', 'required') && form.get('password').touched">Password is required</mat-error>
+                        <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
                     </mat-form-field>
                 </p>
                 
-                <p>
+                <!-- <p>
                     <mat-form-field>
                         <mat-label>Role</mat-label>
                         <mat-select matNativeControl formControlName="user">
@@ -28,9 +28,9 @@
                             <mat-option value="student">Student</mat-option>
                         </mat-select>
                     </mat-form-field>
-                </p>
+                </p> -->
                 <div class="button">
-                    <button mat-raised-button class="mr-3" [routerLink]="['/signup']">SIGNUP</button>
+                    <button mat-raised-button class="mr-3" type="reset" [routerLink]="['/signup']">SIGNUP</button>
                     <button mat-raised-button color="accent" type="submit">LOGIN</button>
                 </div>
             </form>
